@@ -1,0 +1,224 @@
+[
+    {
+        "id": "CC21C",
+        "name": "Fundamentos De Programação",
+        "teacher": "Suzan Kelly Borges Piovesan",
+        "weeklyWorkload": 4,
+        "dependencies": [],
+        "timeCourse": 1
+    },
+    {
+        "id": "CC21D",
+        "name": "Introdução A Ciência Da Computação",
+        "teacher": "Leiliane Pereira De Rezende",
+        "weeklyWorkload": 3,
+        "dependencies": [],
+        "timeCourse": 1
+    },
+    {
+        "id": "FI221E",
+        "name": "Fundamentos De Eletricidade",
+        "teacher": "Carlos Frederico Charret Brandt",
+        "weeklyWorkload": 2,
+        "dependencies": [],
+        "timeCourse": 1
+    },
+    {
+        "id": "MA221A",
+        "name": "Cálculo Diferencial E Integral 1",
+        "teacher": "Vitor Alex Alves De Marchi",
+        "weeklyWorkload": 6,
+        "dependencies": [],
+        "timeCourse": 1
+    },
+    {
+        "id": "MA221B",
+        "name": "Geometria Analítica E Álgebra Linear",
+        "teacher": "Evandro Alves Nakajima",
+        "weeklyWorkload": 6,
+        "dependencies": [],
+        "timeCourse": 1
+    },
+    {
+        "id": "MA221F",
+        "name": "Lógica Matemática",
+        "teacher": "Davi Marcondes Rocha",
+        "weeklyWorkload": 4,
+        "dependencies": [],
+        "timeCourse": 1
+    },
+    {
+        "id": "CC22B",
+        "name": "Circuitos Digitais",
+        "teacher": "Leiliane Pereira De Rezende",
+        "weeklyWorkload": 6,
+        "dependencies": [
+            "MA221F"
+        ],
+        "timeCourse": 2
+    },
+    {
+        "id": "CC22C",
+        "name": "Linguagem de Programação Estruturada",
+        "teacher": "Franck Carlos Velez Benito",
+        "weeklyWorkload": 3,
+        "dependencies": [
+            "CC21C"
+        ],
+        "timeCourse": 2
+    },
+    {
+        "id": "CC22D",
+        "name": "Fundamentos de Banco de Dados",
+        "teacher": "Claudio Jose Biazus",
+        "weeklyWorkload": 4,
+        "dependencies": [],
+        "timeCourse": 2
+    },
+    {
+        "id": "ED222E",
+        "name": "Comunicação Linguística",
+        "teacher": "Vera Lucia Vasilevski Dos Santos Araujo",
+        "weeklyWorkload": 2,
+        "dependencies": [],
+        "timeCourse": 2
+    },
+    {
+        "id": "MA222A",
+        "name": "Cálculo Diferencial e Integral 2",
+        "teacher": "Evandro Alves Nakajima",
+        "weeklyWorkload": 4,
+        "dependencies": [
+            "MA221A"
+        ],
+        "timeCourse": 2
+    },
+    {
+        "id": "MA222F",
+        "name": "Probabilidade e Estatística",
+        "teacher": "Vitor Alex Alves De Marchi",
+        "weeklyWorkload": 4,
+        "dependencies": [],
+        "timeCourse": 2
+    },
+    {
+        "id": "CC23B",
+        "name": "Sistemas Gerenciadores de Banco de Dados",
+        "teacher": "Leiliane Pereira De Rezende",
+        "weeklyWorkload": 4,
+        "dependencies": [
+            "CC22D"
+        ],
+        "timeCourse": 3
+    },
+    {
+        "id": "CC23C",
+        "name": "Estrutura de Dados",
+        "teacher": "Thiago Franca Naves",
+        "weeklyWorkload": 4,
+        "dependencies": [
+            "CC22C"
+        ],
+        "timeCourse": 3
+    },
+    {
+        "id": "CC23D",
+        "name": "Arquitetura e Organização de Computadores",
+        "teacher": "Claudio Jose Biazus",
+        "weeklyWorkload": 4,
+        "dependencies": [],
+        "timeCourse": 3
+    },
+    {
+        "id": "CC23E",
+        "name": "Programação Orientada a Objetos",
+        "teacher": "Anderson Brilhador",
+        "weeklyWorkload": 4,
+        "dependencies": [
+            "CC21C"
+        ],
+        "timeCourse": 3
+    },
+    {
+        "id": "CC23F",
+        "name": "Linguagem de Estruturação e Apresentação de Conteúdos",
+        "teacher": "Anderson Brilhador",
+        "weeklyWorkload": 3,
+        "dependencies": [],
+        "timeCourse": 3
+    },
+    {
+        "id": "MA223A",
+        "name": "Cálculo Numérico",
+        "teacher": "Evandro Alves Nakajima",
+        "weeklyWorkload": 4,
+        "dependencies": [],
+        "timeCourse": 3
+    },
+    {
+        "id": "CC24A",
+        "name": "Linguagem de Programação Objeto Orientada",
+        "teacher": "Giuvane Conti",
+        "weeklyWorkload": 4,
+        "dependencies": [
+            "CC23B",
+            "CC23E"
+        ],
+        "timeCourse": 4
+    },
+    {
+        "id": "CC24C",
+        "name": "Pesquisa e Ordenação de Dados",
+        "teacher": "Pedro Luiz De Paula Filho",
+        "weeklyWorkload": 3,
+        "dependencies": [
+            "CC23C"
+        ],
+        "timeCourse": 4
+    },
+    {
+        "id": "CC24D",
+        "name": "Engenharia de Requisitos",
+        "teacher": "Davi Marcondes Rocha",
+        "weeklyWorkload": 3,
+        "dependencies": [],
+        "timeCourse": 4
+    },
+    {
+        "id": "CC24E",
+        "name": "Linguagem de Montagem",
+        "teacher": "Claudio Jose Biazus",
+        "weeklyWorkload": 3,
+        "dependencies": [
+            "CC22C",
+            "CC23D"
+        ],
+        "timeCourse": 4
+    },
+    {
+        "id": "CC24F",
+        "name": "Comunicação de Dados",
+        "teacher": "Giani Carla Ito",
+        "weeklyWorkload": 4,
+        "dependencies": [],
+        "timeCourse": 4
+    },
+    {
+        "id": "CC24G",
+        "name": "Computação Gráfica",
+        "teacher": "Davi Marcondes Rocha",
+        "weeklyWorkload": 4,
+        "dependencies": [
+            "MA221B"
+        ],
+        "timeCourse": 4
+    },
+    {
+        "id": "ED224B",
+        "name": "Metodologia da Pesquisa",
+        "teacher": "Vera Lucia Vasilevski Dos Santos Araujo",
+        "weeklyWorkload": 2,
+        "dependencies": [],
+        "timeCourse": 4
+    }
+]
