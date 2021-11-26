@@ -10,7 +10,7 @@
     {
         "id": "CC21D",
         "name": "Introdução A Ciência Da Computação",
-        "teacher": "Leiliane Pereira De Rezende",
+        "teacher": "Elenilton Jairo Dezengrini",
         "weeklyWorkload": 3,
         "dependencies": [],
         "timeCourse": 1
@@ -18,7 +18,7 @@
     {
         "id": "FI221E",
         "name": "Fundamentos De Eletricidade",
-        "teacher": "Carlos Frederico Charret Brandt",
+        "teacher": "Elenilton Jairo Dezengrini",
         "weeklyWorkload": 2,
         "dependencies": [],
         "timeCourse": 1
@@ -60,7 +60,7 @@
     {
         "id": "CC22C",
         "name": "Linguagem de Programação Estruturada",
-        "teacher": "Franck Carlos Velez Benito",
+        "teacher": "Giani Carla Ito",
         "weeklyWorkload": 3,
         "dependencies": [
             "CC21C"
@@ -142,7 +142,7 @@
     {
         "id": "CC23F",
         "name": "Linguagem de Estruturação e Apresentação de Conteúdos",
-        "teacher": "Anderson Brilhador",
+        "teacher": "Elenilton Jairo Dezengrini",
         "weeklyWorkload": 3,
         "dependencies": [],
         "timeCourse": 3
