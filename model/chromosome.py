@@ -6,7 +6,7 @@ class Chromosome:
 
     id: int
     disciplineList: List[Discipline]
-    penalty: int
+    penalty: float = 0
 
     def __init__(self, disciplineList: List[Discipline]):
         self.disciplineList = disciplineList

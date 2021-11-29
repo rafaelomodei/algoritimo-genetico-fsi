@@ -4,7 +4,6 @@ from model.utils.constants import MAX_NUMBER_TIME_CORSE
 
 def createChromosomes(chromosome: Chromosome) -> Chromosome:
 
-    chromosome.id = chromosome.id + 1
     for timeCourse in range(1, MAX_NUMBER_TIME_CORSE):
         #range é a a quantidade de disciplinas que cabem na semana
         disciplinePosition = random.sample(range(0, 25), 25)

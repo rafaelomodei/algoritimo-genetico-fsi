@@ -1,10 +1,11 @@
 
+import random
 from typing import List
 from model.chromosome import Chromosome
 from model.population import Population
 from model.punishments import Punishments
 from model.discipline import Discipline
-from model.utils.constants import MAX_NUMBER_TIME_CORSE
+from model.utils.constants import INITIAL_POPULATION, MAX_NUMBER_TIME_CORSE
 
 
 # verificar se a disciplina do mesmo periodo está ocupando o mesmo horario de outra disciplina
@@ -93,16 +94,77 @@ def teacherScheduleConflict(chromosome: Chromosome) -> int:
     
     return totalPunishments
 
-def calculatePopulationFitness(populations: Population) -> None:
-    for chromosome in populations.populationsList:
 
-        totalPunishmentsClassesOverlap = classesOverlap(chromosome)
-        # totalPunishmentsDisorderedDependencies = disorderedDependencies(chromosome)
-        totalPunishmentsTeacherScheduleConflict = teacherScheduleConflict(chromosome)
-        
-        chromosome.penalty = totalPunishmentsClassesOverlap + totalPunishmentsTeacherScheduleConflict
-        
-        print('Disciplinas SOBREPOSICAO: ', totalPunishmentsClassesOverlap)
-        # print('Disciplinas DESORDENADAS: ', totalPunishmentsDisorderedDependencies)
-        print('Disciplinas PROFESSOR: ', totalPunishmentsTeacherScheduleConflict)
-        print('Penalidade: ', chromosome.penalty)
+def calculateChromosomeFitness(penalty:  int) -> float:
+    fitness = 100 /  100 + penalty
+    return fitness 
+
+def assessChromosomeFitness(chromosome: Chromosome) -> float:
+
+    totalPunishmentsClassesOverlap = classesOverlap(chromosome)
+    # totalPunishmentsDisorderedDependencies = disorderedDependencies(chromosome)
+    totalPunishmentsTeacherScheduleConflict = teacherScheduleConflict(chromosome)
+    
+    chromosome.penalty = calculateChromosomeFitness(totalPunishmentsClassesOverlap + totalPunishmentsTeacherScheduleConflict)
+    
+    print('Disciplinas SOBREPOSICAO: ', totalPunishmentsClassesOverlap)
+    # print('Disciplinas DESORDENADAS: ', totalPunishmentsDisorderedDependencies)
+    print('Disciplinas PROFESSOR: ', totalPunishmentsTeacherScheduleConflict)
+    print('Penalidade: ', chromosome.penalty)
+    return chromosome.penalty
+
+
+def assessPopulation(population: Population) -> Population:
+    
+    PopulationFitness = 0
+
+    for chromosome in population.populationsList:
+        print('>> ID: ', chromosome.id)
+        PopulationFitness = PopulationFitness + assessChromosomeFitness(chromosome)
+    
+    population.penalty = PopulationFitness
+
+    return population
+
+
+def createRoulette(population: Population) -> Population:
+
+    rollette: Population = Population(0)
+
+    rollette.id = population.id + 1
+    rollette.populationsList = []
+
+    print('-----')
+    print('Chomossomos criado na roleta')
+    for chromosome in population.populationsList:
+        #Calcula quantos porcento o chromosome ocupa a roleta
+        percentage = ((chromosome.penalty * 100) / population.penalty)
+        print('ID: ', chromosome.id, ' | percentage', round(percentage), ' | Penalidade: ', chromosome.penalty )
+
+        for x in range(round(percentage)):
+            rollette.populationsList.append(chromosome)
+    
+    print('Total de chomossomos na população: ', len(population.populationsList))
+    print('Total de chomossomos na roleta: ', len(rollette.populationsList))
+    print('-----')
+
+    return rollette
+
+def selectChromosomesInRoulette(rollette: Population) -> None:
+    selectedChromosomes: Population = Population(0)
+    selectedChromosomes.populationsList = []
+
+    totalChromosomesSelected: int = round((INITIAL_POPULATION * 100) / len(rollette.populationsList))
+
+    for x in range(totalChromosomesSelected):
+        chromosome = random.choice(rollette.populationsList)
+        selectedChromosomes.populationsList.append(chromosome)
+
+
+    print('Chomossomos selecionados na roleta')
+    for chromosome in selectedChromosomes.populationsList:
+        print('ID: ', chromosome.id, ' | Penalidade: ', chromosome.penalty )
+    
+    print('-----')
+
+

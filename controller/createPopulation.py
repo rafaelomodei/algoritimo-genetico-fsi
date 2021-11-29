@@ -13,8 +13,8 @@ def createPopulation(chromosome: Chromosome) -> Population:
 
     for newChromosome in range(INITIAL_POPULATION):
         
-        print('Cromossomo: ', newChromosome) 
         currentChromosome: Chromosome = createChromosomes(copy.deepcopy(chromosome))
+        currentChromosome.id = newChromosome + 1 # add 1 para ter o id apartir do numero 1
         populations.populationsList.append(currentChromosome)
 
         for discipline in currentChromosome.disciplineList:

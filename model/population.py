@@ -5,7 +5,7 @@ class Population:
 
     id: int = 0
     populationsList: List[Chromosome]
-    penalty: int
+    penalty: float
 
     def __init__(self, penalty: int):
         self.penalty = penalty

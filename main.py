@@ -4,11 +4,17 @@ from model.population import Population
 from model.utils.constants import INITIAL_POPULATION, MAX_NUMBER_TIME_CORSE
 from model.chromosome import Chromosome
 from controller.utils.readFile import readFile
-from controller.utils.validatorDisciplines import calculatePopulationFitness
+from controller.utils.validatorDisciplines import assessPopulation, createRoulette, selectChromosomesInRoulette
 
 chromosome: Chromosome = readFile('database/disciplinas_1_4_utfpr_sh.json')
-populations: Population = createPopulation(chromosome)
+population: Population = createPopulation(chromosome)
 
 
-calculatePopulationFitness(populations)
-print('Populations: ', populations.id)
+currentPopulation: Population = assessPopulation(population)
+print('Populations ID: ', population.id)
+print('Populations PUNIÇÃO: ', population.penalty)
+
+
+
+
+selectChromosomesInRoulette(createRoulette(currentPopulation))
