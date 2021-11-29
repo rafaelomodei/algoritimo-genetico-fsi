@@ -1,9 +1,11 @@
-from io import TextIOWrapper
 import json
-from discipline import Discipline
+from typing import List
+from io import TextIOWrapper
+from model.chromosome import Chromosome
+from model.discipline import Discipline
 
-def readFile(file: str) -> list:
-    disciplineList: list[Discipline] = list()
+def readFile(file: str) -> Chromosome:
+    disciplineList: List[Discipline] = list()
 
     with open(file, 'r', encoding='utf8') as ctx:
         data: TextIOWrapper = json.load(ctx)
@@ -18,5 +20,7 @@ def readFile(file: str) -> list:
                 discipline['timeCourse'],
             )
             disciplineList.append(currentDiscipline)
-
-    return disciplineList
+    chromosome: Chromosome = Chromosome(disciplineList)
+    chromosome.id = 0
+    
+    return chromosome

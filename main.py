@@ -1,13 +1,14 @@
-import copy
 from typing import List
-from createFistPopulation import createFistPopulation
-from utils.constants import INITIAL_POPULATION, MAX_NUMBER_TIME_CORSE
-from discipline import Discipline
-from readFile import readFile
-from createChromosomes import createChromosomes
-from utils.validatorDisciplines import calculatePopulationFitness
+from controller.createPopulation import createPopulation
+from model.population import Population
+from model.utils.constants import INITIAL_POPULATION, MAX_NUMBER_TIME_CORSE
+from model.chromosome import Chromosome
+from controller.utils.readFile import readFile
+from controller.utils.validatorDisciplines import calculatePopulationFitness
 
-chromosomesList: List[Discipline] = readFile('disciplinas_1_4_utfpr_sh.json')
-populations: List[List[Discipline]] = createFistPopulation(chromosomesList)
+chromosome: Chromosome = readFile('database/disciplinas_1_4_utfpr_sh.json')
+populations: Population = createPopulation(chromosome)
+
 
 calculatePopulationFitness(populations)
+print('Populations: ', populations.id)

@@ -1,18 +1,20 @@
 
 from typing import List
-from punishments import Punishments
-from discipline import Discipline
-from utils.constants import INITIAL_POPULATION, MAX_NUMBER_TIME_CORSE
+from model.chromosome import Chromosome
+from model.population import Population
+from model.punishments import Punishments
+from model.discipline import Discipline
+from model.utils.constants import MAX_NUMBER_TIME_CORSE
 
 
 # verificar se a disciplina do mesmo periodo está ocupando o mesmo horario de outra disciplina
-def classesOverlap(discipleneList: List[Discipline]):
+def classesOverlap(chromosome: Chromosome) -> int:
     """Verifica se a disciplina atual tem conflito de horario com outra disciplina"""
 
     totalPunishments: int = 0
     positionsOccupied: list[int] = list()
 
-    for discipline in discipleneList:
+    for discipline in chromosome.disciplineList:
         for timeCourse in range(MAX_NUMBER_TIME_CORSE):
             positionsOccupied.clear()
             if discipline.timeCourse == timeCourse:
@@ -35,13 +37,13 @@ def classesOverlap(discipleneList: List[Discipline]):
     
     return totalPunishments
 
-def disorderedDependencies(discipleneList: List[Discipline]):
+def disorderedDependencies(chromosome: Chromosome) -> int:
     """Verifica se as dependências estão desordenadas... exem: calculo 2 vim antes de calculo 1"""
 
     totalPunishments: int = 0
     disciplineVisitedList: List[Discipline] = list()
 
-    for discipline in discipleneList:
+    for discipline in chromosome.disciplineList:
         for dependencieID in discipline.dependencies:
             for disciplineVisited in disciplineVisitedList:
                 if dependencieID == disciplineVisited.id and  disciplineVisited.timeCourse > discipline.timeCourse:
@@ -65,13 +67,13 @@ def disorderedDependencies(discipleneList: List[Discipline]):
     return totalPunishments
 
 
-def teacherScheduleConflict(discipleneList: List[Discipline]):
+def teacherScheduleConflict(chromosome: Chromosome) -> int:
     """Verifica se professor não está dando aula em duas ou mais materias ao mesmo tempo"""
 
     totalPunishments: int = 0
 
-    for discipline in discipleneList:
-        for currentDiscipline in discipleneList:
+    for discipline in chromosome.disciplineList:
+        for currentDiscipline in chromosome.disciplineList:
 
             print('------')
             print('Disciplina Lista: ', discipline.id)
@@ -91,13 +93,16 @@ def teacherScheduleConflict(discipleneList: List[Discipline]):
     
     return totalPunishments
 
-def calculatePopulationFitness(populations: List[Discipline]):
-    for population in populations:
+def calculatePopulationFitness(populations: Population) -> None:
+    for chromosome in populations.populationsList:
 
-        totalPunishmentsClassesOverlap = classesOverlap(population)
-        # totalPunishmentsDisorderedDependencies = disorderedDependencies(population)
-        totalPunishmentsTeacherScheduleConflict = teacherScheduleConflict(population)
-
+        totalPunishmentsClassesOverlap = classesOverlap(chromosome)
+        # totalPunishmentsDisorderedDependencies = disorderedDependencies(chromosome)
+        totalPunishmentsTeacherScheduleConflict = teacherScheduleConflict(chromosome)
+        
+        chromosome.penalty = totalPunishmentsClassesOverlap + totalPunishmentsTeacherScheduleConflict
+        
         print('Disciplinas SOBREPOSICAO: ', totalPunishmentsClassesOverlap)
         # print('Disciplinas DESORDENADAS: ', totalPunishmentsDisorderedDependencies)
         print('Disciplinas PROFESSOR: ', totalPunishmentsTeacherScheduleConflict)
+        print('Penalidade: ', chromosome.penalty)

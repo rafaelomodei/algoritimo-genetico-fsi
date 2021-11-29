@@ -6,7 +6,6 @@ class Discipline:
     weeklyWorkload: int = ""
     dependencies: list = []
     timeCourse: int = 1
-    penalty: int = 0
 
     def __init__(self, id: str, name: str, teacher: int, weeklyWorkload: int, dependencies: list, timeCourse: int):
         self.id: int = id
