@@ -1,16 +1,16 @@
 
+import copy
 import random
 from typing import List
 from model.chromosome import Chromosome
 from model.population import Population
 from model.punishments import Punishments
 from model.discipline import Discipline
-from model.utils.constants import INITIAL_POPULATION, MAX_NUMBER_TIME_CORSE
+from model.utils.constants import INITIAL_POPULATION, MASK_CROSSOVER, MAX_NUMBER_TIME_CORSE
 
-
-# verificar se a disciplina do mesmo periodo está ocupando o mesmo horario de outra disciplina
 def classesOverlap(chromosome: Chromosome) -> int:
     """Verifica se a disciplina atual tem conflito de horario com outra disciplina"""
+    """Verificar se a disciplina do mesmo periodo está ocupando o mesmo horario de outra disciplina"""
 
     totalPunishments: int = 0
     positionsOccupied: list[int] = list()
@@ -96,10 +96,13 @@ def teacherScheduleConflict(chromosome: Chromosome) -> int:
 
 
 def calculateChromosomeFitness(penalty:  int) -> float:
+    """Calcula o valor do fitness do cromossomo"""
+
     fitness = 100 /  100 + penalty
     return fitness 
 
 def assessChromosomeFitness(chromosome: Chromosome) -> float:
+    """Avalia o fitnes do cromossomo"""
 
     totalPunishmentsClassesOverlap = classesOverlap(chromosome)
     # totalPunishmentsDisorderedDependencies = disorderedDependencies(chromosome)
@@ -115,7 +118,8 @@ def assessChromosomeFitness(chromosome: Chromosome) -> float:
 
 
 def assessPopulation(population: Population) -> Population:
-    
+    """Avalia a população"""
+
     PopulationFitness = 0
 
     for chromosome in population.populationsList:
@@ -128,9 +132,9 @@ def assessPopulation(population: Population) -> Population:
 
 
 def createRoulette(population: Population) -> Population:
+    """Cria roleta"""
 
     rollette: Population = Population(0)
-
     rollette.id = population.id + 1
     rollette.populationsList = []
 
@@ -150,7 +154,9 @@ def createRoulette(population: Population) -> Population:
 
     return rollette
 
-def selectChromosomesInRoulette(rollette: Population) -> None:
+def selectChromosomesInRoulette(rollette: Population) -> Population:
+    """Seleciona o chomossomo que está na roleta"""
+
     selectedChromosomes: Population = Population(0)
     selectedChromosomes.populationsList = []
 
@@ -166,5 +172,98 @@ def selectChromosomesInRoulette(rollette: Population) -> None:
         print('ID: ', chromosome.id, ' | Penalidade: ', chromosome.penalty )
     
     print('-----')
+
+    return selectedChromosomes
+
+def crossover(population: Population) -> Population:
+
+    father: Population = copy.deepcopy(population)
+    mom: Population = copy.deepcopy(population)
+    children: Chromosome = Chromosome([])
+    childrenPopulation: Population = Population(0)
+    childrenPopulation.populationsList = []
+    toogle: bool = False
+
+    for x in range(len(population.populationsList)):
+        print('--------')
+        print('X: ', x)
+        print('father.populationsList LEN: ', len(father.populationsList))
+        print('father.disciplineList LEN: ', len(father.populationsList[x].disciplineList))
+        print('mom.populationsList LEN: ', len(mom.populationsList))
+        print('mom.disciplineList LEN: ', len(mom.populationsList[x].disciplineList))
+        print('MASK_CROSSOVER LEN: ', len(MASK_CROSSOVER))
+        print('--------')
+
+        while len(childrenPopulation.populationsList[x].disciplineList) <= len(population.populationsList[x].disciplineList):
+            if toogle:
+                childrenPopulation.populationsList[x].disciplineList.append(father.populationsList[x].disciplineList.pop())
+            else:
+                childrenPopulation.populationsList[x].disciplineList.append(mom.populationsList[x].disciplineList.pop())
+
+
+
+        # mask = copy.deepcopy(MASK_CROSSOVER)
+        # currentPosition = 0
+        # for discipline in population.populationsList[x].disciplineList:
+        #     toggle = mask.pop() 
+        #     print('MASK_CROSSOVER: ', toggle)
+        #     if toggle:
+        #         for position in father.populationsList[x].disciplineList:
+        #             if position == currentPosition:
+
+        #                 # print('Disciplina: ', father.populationsList[x].disciplineList[len(father.populationsList[x].disciplineList) -1].name)
+        #                 # children.disciplineList.append(father.populationsList[x].disciplineList.pop())
+        #                 print('father.disciplineList LEN: ', len(father.populationsList[x].disciplineList))
+        #                 print('mom.disciplineList LEN: ', len(mom.populationsList[x].disciplineList))
+        #                 print('')
+        #                 children.disciplineList.append(father.populationsList[x].disciplineList.pop())
+        #                 mom.populationsList[x].disciplineList.pop()
+        #     else:
+        #         print('father.disciplineList LEN: ', len(father.populationsList[x].disciplineList))
+        #         print('mom.disciplineList LEN: ', len(mom.populationsList[x].disciplineList))
+        #         print('')
+
+        #         children.disciplineList.append(mom.populationsList[x].disciplineList.pop())
+        #         father.populationsList[x].disciplineList.pop()
+
+        #     childrenPopulation.populationsList.append(children)
+
+    print('Tamanho do filho: ', len(childrenPopulation.populationsList))
+
+
+    for discipline in children.disciplineList:
+        print('Nome da disciplina: ', discipline.name, ' | Periodo: ', discipline.timeCourse, ' | Posição: ', discipline.positions)
+
+    # for chromosomeFather in father.populationsList:
+
+        # print('Quantidade de disciplina: ', len(father.populationsList[x].disciplineList))
+        # for x in range(round(len(chromosomeFather.disciplineList)/5)):
+        #     print('Chomossomo PAI: ', chromosomeFather.disciplineList[len(chromosomeFather.disciplineList) -1].name, ' | [i]: ', i)
+        #     children.disciplineList.append(chromosomeFather.disciplineList.pop())
+      
+
+        # i = i + 1
+
+
+
+
+
+    # for x in range(len(population.populationsList)):
+    #     mask = copy.deepcopy(MASK_CROSSOVER)
+    #     toggle = mask.pop()
+    #     if toggle:
+    #         for discipline in father.populationsList[x].disciplineList:
+    #             children.disciplineList.append(discipline)
+    #             print('Chomossomo PAI: ', discipline.name, ' | [i]: ', i)
+    #     else:
+    #         for discipline in mom.populationsList[x].disciplineList:
+    #             children.disciplineList.append(discipline)
+    #             print('Chomossomo MÃE: ', discipline.name, ' | [i]: ', i)
+            
+    #     i = i + 1
+    
+    print('>>>>>>')
+        # print('Nome da disciplina: ', children.disciplineList)
+    
 
 
